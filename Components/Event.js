@@ -30,6 +30,10 @@ export default class Event extends React.Component {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     };
+    this.props.dayInfo.events.forEach(event => {
+      event.updateTimeLine = this.props.updateTimeLine;
+      event.dayNumber = this.props.dayNumber;
+    });
     // If we try to run the code in this if statement before we have events, it'll error out
     if (this.props.dayInfo.events.length) {
       // Pull out the locations that will show up on the map
@@ -90,7 +94,7 @@ export default class Event extends React.Component {
         </View>
 
         <ScrollView>
-          <Text h4 center> Sort and Edit Your Schedule</Text>
+          <Text h4 center> Here are your suggestions!</Text>
           {
             this.props.dayInfo.events.length ?
               <Schedule
@@ -111,7 +115,7 @@ export default class Event extends React.Component {
 }
 
 Event.propTypes = {
-  saveSchedule: PropTypes.function,
+  saveSchedule: PropTypes.func,
   navigation: PropTypes.object,
   dayInfo: PropTypes.object,
 };

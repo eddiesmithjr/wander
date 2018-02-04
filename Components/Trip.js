@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Modal, AsyncStorage } from 'react-native';
-import { FormInput, Button } from 'react-native-elements';
+import { FormInput, Button, Card } from 'react-native-elements';
 import QRCode from 'react-native-qrcode';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -35,7 +35,7 @@ export default class Trip extends React.Component {
         res.data.forEach((event) => {
           schedule[datesSummary[event.dateTime]].push(event);
         });
-        this.props.navigation.navigate('Itinerary', { dayInfo: schedule });
+        this.props.navigation.navigate('Timeline', { dayInfo: schedule });
       })
       .catch(err => console.error(err));
   }
@@ -67,73 +67,75 @@ export default class Trip extends React.Component {
   render() {
     return (
       <View style={styles.tripContainer}>
-        <Modal
-          visible={this.state.modalVisible}
-          animationType="fade"
-          onRequestClose={() => this.hideModal()}
-          transparent
-        >
-          <View style={styles.tripModal}>
-            <Text
-              style={styles.tripModalText}
-            >Share with a friend by entering their email address here:
-            </Text>
-            <FormInput
-              keyboardType="email-address"
-              onChangeText={text => this.setState({ email: text })}
-              placeholder="enter email"
-              placeholderTextColor="white"
-              inputStyle={{ color: 'white' }}
-              autoCapitalize="none"
+        <Card containerStyle={{ borderRadius: 10, backgroundColor: 'rgba(0, 0, 0, 0.25)' }} >
+          <Modal
+            visible={this.state.modalVisible}
+            animationType="fade"
+            onRequestClose={() => this.hideModal()}
+            transparent
+          >
+            <View style={styles.tripModal}>
+              <Text
+                style={styles.tripModalText}
+              >Share with a friend by entering their email address here:
+              </Text>
+              <FormInput
+                keyboardType="email-address"
+                onChangeText={text => this.setState({ email: text })}
+                placeholder="enter email"
+                placeholderTextColor="white"
+                inputStyle={{ color: 'white' }}
+                autoCapitalize="none"
+              />
+              <Button
+                buttonStyle={{
+                  backgroundColor: 'transparent',
+                  borderRadius: 10,
+                }}
+                onPress={this.addByEmail}
+                title="Add"
+              />
+              <Text style={styles.tripModalText}>Or have your friend scan this QR code from their Wander app</Text>
+              <QRCode
+                value={this.props.schedule.id.toString()}
+                size={200}
+                bgColor="black"
+                fgColor="white"
+              />
+              <Button
+                large
+                raised
+                buttonStyle={{
+                  backgroundColor: 'transparent',
+                  borderRadius: 10,
+                }}
+                onPress={() => this.hideModal()}
+                title="Close"
+              />
+            </View>
+          </Modal>
+          <Text style={{ fontSize: 25, alignContent: 'center', justifyContent: 'center' }}>{this.props.schedule.name}</Text>
+          <View style={styles.viewTripContainer}>
+            <Button
+              small
+              flat
+              color="black"
+              buttonStyle={styles.viewTripButton}
+              title="View this trip"
+              onPress={this.handleTripSelect}
+              underlayColor="rgba(255, 255, 255, 0.5)"
             />
             <Button
-              buttonStyle={{
-                backgroundColor: 'transparent',
-                borderRadius: 10,
-              }}
-              onPress={this.addByEmail}
-              title="Add"
-            />
-            <Text style={styles.tripModalText}>Or have your friend scan this QR code from their Wander app</Text>
-            <QRCode
-              value={this.props.schedule.id.toString()}
-              size={200}
-              bgColor="black"
-              fgColor="white"
-            />
-            <Button
-              large
-              raised
-              buttonStyle={{
-                backgroundColor: 'transparent',
-                borderRadius: 10,
-              }}
-              onPress={() => this.hideModal()}
-              title="Close"
+              small
+              flat
+              color="black"
+              buttonStyle={styles.viewTripButton}
+              title="Share this trip"
+              onPress={this.showModal}
+              underlayColor="rgba(255, 255, 255, 0.5)"
             />
           </View>
-        </Modal>
-        <Text style={{ fontSize: 25, alignContent: 'center', justifyContent: 'center' }}>{this.props.schedule.name}</Text>
-        <View style={styles.viewTripContainer}>
-        <Button
-          small
-          flat
-          color="black"
-          buttonStyle={styles.viewTripButton}
-          title="View this trip"
-          onPress={this.handleTripSelect}
-          underlayColor="rgba(255, 255, 255, 0.5)"
-        />
-        <Button
-          small
-          flat
-          color="black"
-          buttonStyle={styles.viewTripButton}
-          title="Share this trip"
-          onPress={this.showModal}
-          underlayColor="rgba(255, 255, 255, 0.5)"
-          />
-        </View>
+        </Card>
       </View>
     );
   }

@@ -1,8 +1,4 @@
-module.exports.dashboardExample = [
-  { name: 'New York City', id: 3, status: 'creator' },
-  { name: 'New Orleans', id: 5, status: 'attending' },
-  { name: 'Princeton', id: 7, status: 'invited' },
-];
+
 
 module.exports.exampleSchedule = {
   name: 'New York City',

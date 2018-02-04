@@ -26,7 +26,7 @@ export default class Login extends React.Component {
     axios.post('http://18.218.102.64/login', user)
       .then((res) => {
         // If the password is incorrect, do some error handling
-        if (res.data === 'Password is incorrect') {
+        if (res.data === 'User does not exist' || res.data === 'Password is incorrect') {
           alert('Sorry, there was a problem with your email/password combination. Please try again. Remember, email AND password are case sensitive');
         // Otherwise, save the token on the user's device and send them to the dashboard
         } else {
@@ -125,3 +125,4 @@ Login.navigationOptions = () => ({
 Login.propTypes = {
   navigation: PropTypes.object,
 };
+

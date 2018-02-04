@@ -6,15 +6,19 @@ import Row from './Row';
 import { styles } from './Styles';
 
 export default class Schedule extends Component {
+
   renderRow({ data, active }) {
     return <Row 
       data={data} 
       active={active} 
-      key={data.name}
+
     />
   }
 
   render() {
+
+    
+
     return (
       <View style={styles.scheduleContainer}>
         <SortableList
@@ -29,5 +33,6 @@ export default class Schedule extends Component {
 }
 
 Schedule.propTypes = {
-  data: PropTypes.object,
+  navigation: PropTypes.object,
+
 };

@@ -151,9 +151,7 @@ const scheduleBuilder = (startDate, endDate, google, restaurantData, predictHQ, 
     }
     schedule[day].date = new Date(currentDate).toString();
     currentDate.setDate(currentDate.getDate() + 1);
-    console.log('before sort', schedule[day].events);
     schedule[day].events = sortScheduleByLikes(schedule[day].events, userLikes);
-    console.log('after sort', schedule[day].events);
   });
   schedule.name = location.split('+').join(' ');
   return schedule;

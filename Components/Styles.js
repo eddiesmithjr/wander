@@ -310,6 +310,38 @@ module.exports.styles = StyleSheet.create({
   innerContainer: {
     alignItems: 'center',
   },
+  // Styles for Trip.js
+  tripContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
+  tripModal: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(127, 127, 127, 0.75)',
+  },
+  tripModalText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  tripModalButton: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  timeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timeButton: {
+    backgroundColor: 'lightblue',
+    padding: 12,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
 });
 
 this.active = new Animated.Value(0);

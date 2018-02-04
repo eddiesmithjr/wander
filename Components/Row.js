@@ -5,16 +5,19 @@ import {
   View,
   Modal,
   AsyncStorage,
+  TouchableHighlight,
 } from 'react-native';
-import { Button, Icon, Text, Card } from 'react-native-elements';
-import { TextField } from 'react-native-material-textfield';
 import openMap from 'react-native-open-maps';
+import { Button, Icon, Text, Card } from 'react-native-elements';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import PropTypes from 'prop-types';
+import { TextField } from 'react-native-material-textfield';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { keys } from '../config';
 import { styles, rowStyle } from './Styles';
 import { typeIds } from '../SampleData/Types';
+import moment from 'moment';
+
 
 export default class Row extends React.Component {
   constructor(props) {
@@ -24,17 +27,16 @@ export default class Row extends React.Component {
       extraData: {},
       modalVisible: false,
       isDateTimePickerVisible: false,
-      time: '',
-      text: '',
+      time: ''
     };
 
     this.openNewMap = this.openNewMap.bind(this);
     this.dislikeEvent = this.dislikeEvent.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.showDateTimePicker = this.showDateTimePicker.bind(this);
-    this.hideDateTimePicker = this.hideDateTimePicker.bind(this);
-    this.handleDatePicked = this.handleDatePicked.bind(this);
+    this._showDateTimePicker = this._showDateTimePicker.bind(this);
+    this._hideDateTimePicker = this._hideDateTimePicker.bind(this);
+    this._handleDatePicked = this._handleDatePicked.bind(this);
     this.active = new Animated.Value(0);
   }
 
@@ -92,22 +94,22 @@ export default class Row extends React.Component {
     this.setState({ modalVisible: false });
   }
 
-  showDateTimePicker() {
-    this.setState({ isDateTimePickerVisible: true });
-  }
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 
-  hideDateTimePicker() {
-    this.setState({ isDateTimePickerVisible: false });
-  }
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
-  handleDatePicked(time) {
-    this.setState({ time });
-    this.hideDateTimePicker();
-  }
+  _handleDatePicked = time => {
+
+    let startTime = moment(time).format('hh:mm a');
+    this.setState({ time:startTime });
+    
+    this._hideDateTimePicker();
+  };
 
   render() {
     const { data } = this.props;
-    const { text } = this.state;
+    const text = this.state.text;
+    const time  = this.state.time;
     const modalInfo = this.state.extraData || {};
     let openHoursText;
 
@@ -115,6 +117,9 @@ export default class Row extends React.Component {
       openHoursText = modalInfo.opening_hours.weekday_text.map(item => (<Text key={item} >{item}</Text>));
     }
 
+    
+    data.startTime = this.state.time;
+    
     return (
       <Animated.View style={[
           styles.row,
@@ -126,94 +131,58 @@ export default class Row extends React.Component {
           type="font-awesome"
           color="#f50"
           style={{ padding: 2 }}
-          onPress={this.openModal}
+          onPress={() => {
+            this.openModal()
+            }
+          }
         />
         <View>
           <Modal
             visible={this.state.modalVisible}
 
-            animationType="slide"
+            animationType={'slide'}
 
             onRequestClose={() => this.closeModal()}
           >
             <View style={styles.modalContainer}>
               <View style={styles.innerContainer}>
-                <Card title={modalInfo.name !== undefined ? modalInfo.name : '...loading'}>
+                <Card title={modalInfo.name !== undefined ? modalInfo.name : '...loading'}> 
                   <Text>Phone Number: {'\n'} {modalInfo.formatted_phone_number !== undefined ? modalInfo.formatted_phone_number : '...loading'}{'\n'}</Text>
                   <Text>Address: {'\n'} {modalInfo.formatted_address !== undefined ? modalInfo.formatted_address : '...loading'}{'\n'}</Text>
                   <Text>Open Hours
                     {openHoursText}
                   </Text>
-                  <View>
-                    <TextField
-                      label="Leave yourself some notes about the event"
-                      value={text}
-                      onChangeText={text => this.setState({ text })}
+                  <View style={styles.timeContainer}>
+                    <TouchableHighlight onPress={this._showDateTimePicker}>
+                      <View style={styles.timeButton}>
+                        <Text>Start Time for Your Event</Text>
+                      </View>
+                    </TouchableHighlight>
+                    <DateTimePicker
+                      mode='time'
+                      isVisible={this.state.isDateTimePickerVisible}
+                      onConfirm={(this._handleDatePicked)}
+                      onCancel={this._hideDateTimePicker}
+                      is24Hour='false'
                     />
-                  </View>
-                  <View>
-                    <Button
-                      flat
-                      buttonStyle={{
-                        backgroundColor: 'rgba(0,0,0,0.5)',
-                        width: '95%',
-                        marginVertical: 5,
-                        borderRadius: 10,
-                        marginTop: 10,
-                        borderColor: 'black',
-                        borderWidth: 2,
-                      }}
-                      onPress={this.showDateTimePicker}
-                      title="pick a start time"
-                    />
-                    <View>
-                      <DateTimePicker
-                        isVisible={this.state.isDateTimePickerVisible}
-                        onConfirm={this.handleDatePicked}
-                        onCancel={this.hideDateTimePicker}
-                        mode="time"
-                      />
-                    </View>
                   </View>
                   <Button
-                    flat
-                    buttonStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.5)',
-                      width: '95%',
-                      marginVertical: 5,
-                      borderRadius: 10,
-                      marginTop: 10,
-                      borderColor: 'black',
-                      borderWidth: 2,
-                    }}
-                    title="View this event in your native maps app"
+                    raised
+                    title="Open in Maps"
                     onPress={this.openNewMap}
                   />
                   <Button
-                    flat
-                    buttonStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.5)',
-                      width: '95%',
-                      marginVertical: 5,
-                      borderRadius: 10,
-                      marginTop: 10,
-                      borderColor: 'black',
-                      borderWidth: 2,
-                    }}
-                    title="I don't like this kind of event"
+                    raised
+                    title="I'll pass on this event"
                     onPress={this.dislikeEvent}
                   />
                   <Button
-                    flat
-                    buttonStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.5)',
-                      width: '95%',
-                      marginVertical: 5,
-                      borderRadius: 10,
-                      marginTop: 10,
-                      borderColor: 'black',
-                      borderWidth: 2,
-                    }}
+                    raised
+                    onPress={() =>  data.updateTimeLine( { data } )}
+                    title="Add Event to my Trip"
+                  />
+                  <Button
+                    raised
                     onPress={() => this.closeModal()}
                     title="Close modal"
                   />
@@ -222,15 +191,14 @@ export default class Row extends React.Component {
             </View>
           </Modal>
         </View>
+
+
         <View style={{ flex: 1 }}>
           <Text style={styles.text}>{data.name}</Text>
         </View>
+        {/* <Image source={{uri: data.image}} style={styles.image} /> */}
+
       </Animated.View>
     );
   }
 }
-
-Row.propTypes = {
-  data: PropTypes.object,
-  active: PropTypes.any,
-};
