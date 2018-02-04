@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, ImageBackground } from 'react-native';
 import { Button } from 'react-native-elements';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Interest from './Interest';
 import { styles } from './Styles';
 import { typePlurals } from '../SampleData/Types';
+import NOLA from '../img/NOLA.jpg';
 
 export default class GatherInterests extends React.Component {
   constructor(props) {
@@ -32,18 +33,24 @@ export default class GatherInterests extends React.Component {
         key={typePlurals[type.name]}
       />));
     return (
-      <ScrollView contentContainerStyle={styles.gatherInterestsContainer} >
-        <Text style={styles.gatherInterestsTitleText}>wander</Text>
-        <Text style={{ fontSize: 18 }}>Tell us what you like to do when you're on vacation</Text>
-        {interests || <Text>loading</Text>}
-        <Button
-          large
-          raised
-          buttonStyle={{ backgroundColor: '#0b81e8' }}
-          title="Next"
-          onPress={() => this.props.navigation.navigate('Dashboard')}
-        />
-      </ScrollView>
+      <ImageBackground
+        style={styles.gatherInterestsImageBackground}
+        imageStyle={{ opacity: 0.5 }}
+        source={NOLA}
+      >
+        <ScrollView contentContainerStyle={styles.gatherInterestsContainer} >
+          <Text style={styles.gatherInterestsTitleText}>wander</Text>
+          <Text style={{ fontSize: 18 }}>Tell us what you like to do when you're on vacation</Text>
+          {interests || <Text>loading</Text>}
+          <Button
+            large
+            flat
+            buttonStyle={{ backgroundColor: '#0b81e8' }}
+            title="Next"
+            onPress={() => this.props.navigation.navigate('Dashboard')}
+          />
+        </ScrollView>
+      </ImageBackground>
     );
   }
 }

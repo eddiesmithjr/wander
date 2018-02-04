@@ -230,6 +230,15 @@ module.exports.styles = StyleSheet.create({
     fontSize: 60,
     fontWeight: 'bold',
   },
+  gatherInterestsImageBackground: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    backfaceVisibility: 'hidden',
+  },
+
   // Signup page
   signupContainer: {
     flex: 1,
