@@ -212,7 +212,7 @@ export default class Dashboard extends React.Component {
     return (
       <ImageBackground
         style={styles.dashboardImageBackground}
-        imageStyle={{ opacity: 0.5 }}
+        imageStyle={{ opacity: 0.4 }}
         source={goldenGate}
       >
         <Header
@@ -233,9 +233,9 @@ export default class Dashboard extends React.Component {
             <Button
             small
             flat
-            color="black"
-            buttonStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', borderRadius: 40, marginTop: 10, alignItems: 'center', borderWidth: 1 }}
-						icon={{name: 'pencil', type: 'font-awesome', color: "black"}}
+            color="white"
+            buttonStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', borderRadius: 10, marginTop: 10, alignItems: 'center', borderWidth: 1 }}
+						icon={{name: 'pencil', type: 'font-awesome', color: "white"}}
             onPress={this._pickImage}
 						title="Edit Photo"
             underlayColor="rgba(255, 255, 255, 0.5)"
@@ -247,7 +247,7 @@ export default class Dashboard extends React.Component {
           <Button
             // large
             flat
-            color="black"
+            color="white"
             buttonStyle={styles.newTripButton}
             title="Plan a new trip"
             onPress={() => this.props.navigation.navigate('NewItinerary')}
@@ -258,7 +258,7 @@ export default class Dashboard extends React.Component {
           <Button
             // large
             flat
-            color="black"
+            color="white"
             buttonStyle={styles.QRButton}
             title="Scan a QR code"
             onPress={() => this.props.navigation.navigate('QRScanner')}
@@ -270,7 +270,7 @@ export default class Dashboard extends React.Component {
           <Button
             // large
             flat
-            color="black"
+            color="white"
             buttonStyle={styles.signoutButton}
             title="Sign out"
             onPress={this.signout}

@@ -26,7 +26,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   profileButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 10,
     marginTop: 10,
     borderColor: 'black',
@@ -40,7 +40,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   viewTripButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderRadius: 10,
     alignSelf: 'flex-end',
     marginTop: 10,
@@ -57,7 +57,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   newTripButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderRadius: 10,
     marginTop: 10,
     borderColor: 'black',
@@ -73,7 +73,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   QRButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderRadius: 10,
     marginTop: 10,
     borderColor: 'black',
@@ -89,7 +89,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   signoutButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderRadius: 10,
     marginTop: 10,
     borderColor: 'black',
@@ -146,7 +146,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   newItineraryButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderRadius: 10,
     marginTop: 10,
     borderColor: 'black',
@@ -163,7 +163,7 @@ module.exports.styles = StyleSheet.create({
   },
 
   dashboardButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderRadius: 10,
     marginTop: 10,
     borderColor: 'black',
