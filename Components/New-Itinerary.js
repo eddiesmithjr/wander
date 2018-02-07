@@ -115,25 +115,26 @@ export default class NewItinerary extends React.Component {
   render() {
     return (
       <ImageBackground
-      style={styles.newItineraryImageBackground}
-      imageStyle={{ opacity: 0.35 }}
-      source={eiffelTower}
-    >
-      <View style={styles.newItineraryContainer}>
-        <Header
-          statusBarProps={{ barStyle: 'light-content' }}
-          outerContainerStyles={{ backgroundColor: 'black', width: '100%' }}
-          centerComponent={{ text: 'wander', style: { color: 'white', fontSize: 30 } }}
-          leftComponent={<Icon
-            name="home"
-            color='white'
-            onPress={() => this.props.navigation
-              .dispatch(NavigationActions.reset({
-                index: 0,
-                actions:
-                  [NavigationActions.navigate({ routeName: 'Dashboard' })],
-              }))}
-            />}
+        style={styles.newItineraryImageBackground}
+        imageStyle={{ opacity: 0.35 }}
+        source={eiffelTower}
+      >
+        <View style={styles.newItineraryContainer}>
+          <Header
+            statusBarProps={{ barStyle: 'light-content' }}
+            outerContainerStyles={{ backgroundColor: 'black', width: '100%' }}
+            centerComponent={{ text: 'wander', style: { color: 'white', fontSize: 30 } }}
+            leftComponent={
+              <Icon
+                name="home"
+                color="white"
+                onPress={() => this.props.navigation
+                .dispatch(NavigationActions.reset({
+                  index: 0,
+                  actions:
+                    [NavigationActions.navigate({ routeName: 'Dashboard' })],
+                }))}
+              />}
           />
           <View style={styles.newItineraryContainer}>
             <GooglePlacesAutocomplete
@@ -142,10 +143,10 @@ export default class NewItinerary extends React.Component {
               autoFocus={false}
               returnKeyType="search"
               query={{
-              key: keys.googlePlacesAPI,
-              language: 'en',
-              types: '(cities)',
-            }}
+                key: keys.googlePlacesAPI,
+                language: 'en',
+                types: '(cities)',
+              }}
               styles={{
               textInputContainer: {
                 width: '100%',
@@ -157,8 +158,7 @@ export default class NewItinerary extends React.Component {
               predefinedPlacesDescription: {
                 color: '#1faadb',
               },
-            }}
-<<<<<<< HEAD
+              }}
               debounce={200}
               onPress={this.searchPlaces}
             />
@@ -192,7 +192,7 @@ export default class NewItinerary extends React.Component {
               <Button
                 large
                 flat
-                color="black"
+                color="white"
                 buttonStyle={styles.newItineraryButton}
                 title="Get my itinerary"
                 onPress={this.getItinerary}
@@ -203,65 +203,13 @@ export default class NewItinerary extends React.Component {
               <Button
                 large
                 flat
-                color="black"
+                color="white"
                 buttonStyle={styles.dashboardButton}
                 title="Go to Dashboard"
                 onPress={() => this.props.navigation.navigate('Dashboard')}
                 underlayColor="rgba(255, 255, 255, 0.5)"
               />
             </View>
-=======
-            debounce={200}
-            onPress={this.searchPlaces}
-          />
-          <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            animating={this.state.loading}
-          />
-          <Text style={{ justifyContent: 'center', fontWeight: 'bold', fontSize: 18 }} >{this.state.destination.split('+').join(' ')}</Text>
-          <Text h4>When are you leaving?</Text>
-          <TouchableOpacity onPress={this.showStartDateTimePicker}>
-            <Text style={{ color: 'black', fontSize: 20 }}>Select a date</Text>
-          </TouchableOpacity>
-          <DateTimePicker
-            isVisible={this.state.startDateTimePickerVisible}
-            onConfirm={this.handleStartDatePicked}
-            onCancel={this.hideStartDateTimePicker}
-          />
-          <Text>{`${months[this.state.startDate.getMonth()]} ${this.state.startDate.getDate()}`}</Text>
-          <Text h4>When do you come back?</Text>
-          <TouchableOpacity onPress={this.showEndDateTimePicker}>
-            <Text style={{ color: 'black', fontSize: 20 }}>Select a date</Text>
-          </TouchableOpacity>
-          <DateTimePicker
-            isVisible={this.state.endDateTimePickerVisible}
-            onConfirm={this.handleEndDatePicked}
-            onCancel={this.hideEndDateTimePicker}
-          />
-          <Text>{`${months[this.state.endDate.getMonth()]} ${this.state.endDate.getDate()}`}</Text>
-          <View style={styles.newItineraryContainer}>
-          <Button
-            large
-            flat
-            color="white"
-            buttonStyle={styles.newItineraryButton}
-            title="Get my itinerary"
-            onPress={this.getItinerary}
-            underlayColor="rgba(255, 255, 255, 0.5)"
-          />
-          </View>
-          <View style={styles.newDashboardContainer}>
-          <Button
-            large
-            flat
-            color="white"
-            buttonStyle={styles.dashboardButton}
-            title="Go to Dashboard"
-            onPress={() => this.props.navigation.navigate('Dashboard')}
-            underlayColor="rgba(255, 255, 255, 0.5)"
-          />
->>>>>>> 7a0e3d7417121b8d51761697b0b41da98aa33c15
           </View>
         </View>
       </ImageBackground>
