@@ -4,6 +4,7 @@ import Swiper from 'react-native-swiper';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Event from './Event';
+import { keys } from '../config';
 
 export default class Itinerary extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class Itinerary extends React.Component {
 
   componentWillMount() {
     // Creating a helper function to get the event information when we have the event id
-    const getDaySchedule = (dayArr, cb) => Promise.all(dayArr.map(event => axios.get(`http://18.218.102.64/event/${event.id}`)))
+    const getDaySchedule = (dayArr, cb) => Promise.all(dayArr.map(event => axios.get(`${keys.devURI}/event/${event.id}`)))
       .then((res) => {
         // res is an array holding the response objects from each of the calls to the database
         // They're not formatted correctly, so we map through them here and pull out what we need
@@ -98,7 +99,7 @@ export default class Itinerary extends React.Component {
       const savedToken = JSON.parse(res);
       axios({
         method: 'post',
-        url: 'http://18.218.102.64/user/schedule',
+        url: `${keys.devURI}/user/schedule`,
         headers: {
           authorization: savedToken,
           'Content-Type': 'application/json',

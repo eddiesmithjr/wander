@@ -8,6 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import Chicago from '../img/Chicago.jpg';
 import whiteLogo from '../img/whiteLogo.png';
 import { styles } from './Styles';
+import { keys } from '../config';
 
 export default class Signup extends React.Component {
   constructor() {
@@ -26,7 +27,7 @@ export default class Signup extends React.Component {
       password: this.state.password,
       username: this.state.username,
     };
-    axios.post('http://18.218.102.64/signup', user)
+    axios.post(`${keys.devURI}/signup`, user)
       .then((res) => {
         // If the user wasn't created, give the user the option to try again
         if (res.data === 'User was not created') {

@@ -7,6 +7,7 @@ import {
 import Timeline from 'react-native-timeline-listview';
 import Swiper from 'react-native-swiper';
 import axios from 'axios';
+import { keys } from '../config';
 
 
 const stylesTimeline = StyleSheet.create({
@@ -57,7 +58,7 @@ export default class TimelineExample extends Component {
   }
 
   componentWillMount() {
-    const getDaySchedule = (dayArr, cb) => Promise.all(dayArr.map(event => axios.get(`http://18.218.102.64/event/${event.id_event}`)))
+    const getDaySchedule = (dayArr, cb) => Promise.all(dayArr.map(event => axios.get(`${keys.devURI}/event/${event.id_event}`)))
       .then((res) => {
         const fullDayArr = res.map((obj) => {
           const result = {};
@@ -88,37 +89,37 @@ export default class TimelineExample extends Component {
 
   render() {
     return (<Text>Itinerary</Text>);
-  //   const scheduleView = Object.keys(this.data)
-  //     .filter(item => item[0] === 'd')
-  //     .map(day => (
-  //       <View style={stylesTimeline.container}>
-  //         <Timeline
-  //           style={stylesTimeline.list}
-  //           data={this.data[day]}
-  //           circleSize={20}
-  //           circleColor="rgb(45,156,219)"
-  //           lineColor="rgb(45,156,219)"
-  //           timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
-  //           timeStyle={{
-  //             textAlign: 'center',
-  //             backgroundColor: '#ff9797',
-  //             color: 'white',
-  //             padding: 5,
-  //             borderRadius: 13,
-  //           }}
-  //           descriptionStyle={{ color: 'gray' }}
-  //           options={{
-  //             style: { paddingTop: 5 },
-  //           }}
-  //           innerCircle="dot"
-  //         />
-  //       </View>
-  //     ));
-  //   return (
-  //     <Swiper>
-  //       {scheduleView || <Text>Your Timeline is loading...</Text>}
-  //     </Swiper>
-  //   );
-  // }
+    const scheduleView = Object.keys(this.data)
+      .filter(item => item[0] === 'd')
+      .map(day => (
+        <View style={stylesTimeline.container}>
+          <Timeline
+            style={stylesTimeline.list}
+            data={this.data[day]}
+            circleSize={20}
+            circleColor="rgb(45,156,219)"
+            lineColor="rgb(45,156,219)"
+            timeContainerStyle={{ minWidth: 52, marginTop: -5 }}
+            timeStyle={{
+              textAlign: 'center',
+              backgroundColor: '#ff9797',
+              color: 'white',
+              padding: 5,
+              borderRadius: 13,
+            }}
+            descriptionStyle={{ color: 'gray' }}
+            options={{
+              style: { paddingTop: 5 },
+            }}
+            innerCircle="dot"
+          />
+        </View>
+      ));
+    return (
+      <Swiper>
+        {scheduleView || <Text>Your Timeline is loading...</Text>}
+      </Swiper>
+    );
+  }
   }
 }

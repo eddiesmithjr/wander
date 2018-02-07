@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { keys } from '../config';
 
 // Honestly, most of this component was copied and pasted from the docs
 // But it works. Don't touch it
@@ -30,7 +31,7 @@ export default class QRScanner extends React.Component {
         .then((token) => {
           const body = { scheduleId: data };
           return axios({
-            url: 'http://18.218.102.64/join_schedule',
+            url: `${keys.devURI}/join_schedule`,
             method: 'post',
             headers: {
               authorization: JSON.parse(token),

@@ -8,6 +8,7 @@ import Interest from './Interest';
 import { styles } from './Styles';
 import { typePlurals } from '../SampleData/Types';
 import NOLA from '../img/NOLA.jpg';
+import { keys } from '../config';
 
 export default class GatherInterests extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class GatherInterests extends React.Component {
 
   componentWillMount() {
     // Get all the event types out of the database
-    axios.get('http://18.218.102.64/types')
+    axios.get(`${keys.devURI}/types`)
       .then(response => this.setState({ types: response.data.map(type => type) }))
       .catch(error => console.error(error));
   }

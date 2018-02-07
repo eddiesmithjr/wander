@@ -71,7 +71,7 @@ export default class Row extends React.Component {
           const savedToken = JSON.parse(res);
           axios({
             method: 'post',
-            url: 'http://18.218.102.64/user_like',
+            url: `${keys.devURI}/user_like`,
             headers: {
               authorization: savedToken,
               'Content-Type': 'application/json',

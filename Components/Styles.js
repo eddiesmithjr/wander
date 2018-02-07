@@ -159,7 +159,7 @@ module.exports.styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 0,
-		paddingBottom: 10
+    paddingBottom: 10,
   },
 
   dashboardButton: {
@@ -309,24 +309,6 @@ module.exports.styles = StyleSheet.create({
   },
   innerContainer: {
     alignItems: 'center',
-  },
-  // Styles for Trip.js
-  tripContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-  },
-  tripModal: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(127, 127, 127, 0.75)',
-  },
-  tripModalText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  tripModalButton: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   timeContainer: {
     flex: 1,

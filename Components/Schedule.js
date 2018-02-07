@@ -6,19 +6,15 @@ import Row from './Row';
 import { styles } from './Styles';
 
 export default class Schedule extends Component {
-
   renderRow({ data, active }) {
-    return <Row 
-      data={data} 
-      active={active} 
+    return (<Row
+      data={data}
+      active={active}
 
-    />
+    />);
   }
 
   render() {
-
-    
-
     return (
       <View style={styles.scheduleContainer}>
         <SortableList

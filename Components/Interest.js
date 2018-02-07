@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { icons } from '../SampleData/Types';
+import { keys } from '../config';
 
 export default class Interest extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class Interest extends React.Component {
       if (this.state.status) {
         axios({
           method: 'post',
-          url: 'http://18.218.102.64/user_like',
+          url: `${keys.devURI}/user_like`,
           headers: {
             authorization: savedToken,
             'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ export default class Interest extends React.Component {
       } else {
         axios({
           method: 'delete',
-          url: 'http://18.218.102.64/user_like',
+          url: `${keys.devURI}/user_like`,
           headers: {
             authorization: savedToken,
           },

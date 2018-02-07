@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import NYC from '../img/NYC.jpg';
 import whiteLogo from '../img/whiteLogo.png';
 import { styles } from './Styles';
+import { keys } from '../config';
 
 export default class Login extends React.Component {
   constructor() {
@@ -23,7 +24,7 @@ export default class Login extends React.Component {
     // Get the stuff that we need for the login request
     const user = { email: this.state.email, password: this.state.password };
     // Make a request to the login route
-    axios.post('http://18.218.102.64/login', user)
+    axios.post(`${keys.devURI}/login`, user)
       .then((res) => {
         // If the password is incorrect, do some error handling
         if (res.data === 'User does not exist' || res.data === 'Password is incorrect') {

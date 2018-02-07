@@ -5,7 +5,7 @@ import QRCode from 'react-native-qrcode';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { styles } from './Styles';
-
+import { keys } from '../config';
 
 export default class Trip extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class Trip extends React.Component {
 
   handleTripSelect() {
     // When a trip is clicked, get all of the events and send the user to the Itinerary page
-    axios.get(`http://18.218.102.64/${this.props.schedule.id}/schedules`)
+    axios.get(`${keys.devURI}/${this.props.schedule.id}/schedules`)
       .then((res) => {
         const datesSummary = res.data.reduce((seed, obj) => {
           seed[obj.dateTime] = true;
@@ -53,7 +53,7 @@ export default class Trip extends React.Component {
     const body = { userEmail: this.state.email, scheduleId: this.props.schedule.id };
     AsyncStorage.getItem('Token')
       .then(token => axios({
-        url: 'http://18.218.102.64/join_schedule',
+        url: `${keys.devURI}/join_schedule`,
         method: 'post',
         headers: { authorization: JSON.parse(token) },
         data: body,

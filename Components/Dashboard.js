@@ -48,11 +48,11 @@ export default class Dashboard extends React.Component {
     // Get the authentication token from storage
     AsyncStorage.getItem('Token')
       // Make a request to get the user's schedules from the database
-      .then(res => axios.get('http://18.218.102.64/dashboard', { headers: { authorization: JSON.parse(res) } }))
+      .then(res => axios.get(`${keys.devURI}/dashboard`, { headers: { authorization: JSON.parse(res) } }))
       .then((res) => {
         // We only have the schedule id, so we need another request to get the name of each schedule
         res.data.forEach((userSchedule) => {
-          axios.get(`http://18.218.102.64/schedule/${userSchedule.id_schedule}`)
+          axios.get(`${keys.devURI}/schedule/${userSchedule.id_schedule}`)
             .then((response) => {
               const schedule = response.data;
               // Once we have the extra information, we only need bits of it,
@@ -82,7 +82,7 @@ export default class Dashboard extends React.Component {
 	      // Make a request to get the user's schedules from the database
 	      .then(res => {
 					// While we already have the token, we can get the user's profile picture in the same function
-					axios.get('http://18.218.102.64/photo', { headers: { authorization: JSON.parse(res) } })
+          axios.get(`${keys.devURI}/photo`, { headers: { authorization: JSON.parse(res) } })
 						.then((response) => {
 							let photo = response.data;
 							console.log('photo', photo);
@@ -101,7 +101,7 @@ export default class Dashboard extends React.Component {
     AsyncStorage.getItem('Token')
       .then((token) => {
         return axios({
-          url: 'http://18.218.102.64/accept_invite',
+          url: `${keys.devURI}/accept_invite`,
           method: 'post',
           headers: {
             authorization: JSON.parse(token),
@@ -127,7 +127,7 @@ export default class Dashboard extends React.Component {
     AsyncStorage.getItem('Token')
       .then((token) => {
         return axios({
-          url: 'http://18.218.102.64/accept_invite',
+          url: `${keys.devURI}/accept_invite`,
           method: 'post',
           headers: {
             authorization: JSON.parse(token),
@@ -183,7 +183,7 @@ export default class Dashboard extends React.Component {
 
 			AsyncStorage.getItem('Token')
 				.then((res) => {
-					axios.post('http://18.218.102.64/photo', s3Photo, { headers: { authorization: JSON.parse(res) } })
+          axios.post(`${keys.devURI}/photo`, s3Photo, { headers: { authorization: JSON.parse(res) } })
 						.catch((err) => console.error('Error posting image to db ', err));
 				});
 		});
